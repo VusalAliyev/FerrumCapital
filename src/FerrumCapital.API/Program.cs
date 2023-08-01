@@ -20,7 +20,7 @@ var app = builder.Build();
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-            Path.Combine(app.Environment.ContentRootPath, "Downloaded")),
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Downloaded")),
     RequestPath = "/Downloaded"
 });
 
