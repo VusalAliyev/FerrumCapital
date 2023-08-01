@@ -1,14 +1,25 @@
-using FerrumCapital.Application;
+﻿using FerrumCapital.Application;
 using FerrumCapital.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using Serilog;
+using Serilog.Core;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
-// Add services to the container.
+// Configuration for Serilog
+Logger log = new LoggerConfiguration()
+    .WriteTo.File("logs/log.txt")
+    .Enrich.FromLogContext()
+    .MinimumLevel.Information()
+    .CreateLogger();
 
+builder.Host.UseSerilog(log);
+
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -16,6 +27,18 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging(options =>
+{
+    options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+    {
+        // Add Remote IP Adress to log
+        if (httpContext?.Connection?.RemoteIpAddress != null)
+        {
+            diagnosticContext.Set("RemoteIpAddress", httpContext.Connection.RemoteIpAddress.ToString());
+        }
+    };
+});
 
 app.UseStaticFiles(new StaticFileOptions
 {
