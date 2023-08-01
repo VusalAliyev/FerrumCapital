@@ -1,4 +1,5 @@
-﻿using FerrumCapital.Application;
+﻿using FerrumCapital.API.Middlewares;
+using FerrumCapital.Application;
 using FerrumCapital.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -46,6 +47,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
+
+
+//Custom error handlerS middleware
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseSerilogRequestLogging(options =>
 {
