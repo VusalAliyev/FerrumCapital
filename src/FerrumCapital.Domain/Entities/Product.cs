@@ -12,7 +12,7 @@ namespace FerrumCapital.Domain.Entities
     public class Product: BaseAuditableEntity
     {
         public string Name { get; set; }
-        [Required]
+        //[Required]
         //[DataType(DataType.Upload)]
         //[MaxFileSize(5 * 1024 * 1024)] // Maximum file size (e.g., 5 MB)
         //[AllowedExtensions(new string[] { ".txt", ".pdf", ".docx" })]

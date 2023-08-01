@@ -10,7 +10,7 @@ namespace FerrumCapital.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
-        DbSet<Product> Reminders { get; }
+        public DbSet<Product> Products { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

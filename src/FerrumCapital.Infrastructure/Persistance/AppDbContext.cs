@@ -21,7 +21,7 @@ namespace FerrumCapital.Infrastructure.Persistance
             _interceptor = interceptor;
         }
 
-        public DbSet<Product> Reminders { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
