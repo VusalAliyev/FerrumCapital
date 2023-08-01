@@ -3,6 +3,7 @@ using FerrumCapital.Application.Features.Commands.Product.DeleteProduct;
 using FerrumCapital.Application.Features.Commands.Product.UpdateProduct;
 using FerrumCapital.Application.Features.Queries.Product.GetAllProducts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -11,6 +12,7 @@ namespace FerrumCapital.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;

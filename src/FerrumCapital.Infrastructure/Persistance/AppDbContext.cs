@@ -1,6 +1,8 @@
 ﻿using FerrumCapital.Application.Common.Interfaces;
 using FerrumCapital.Domain.Entities;
+using FerrumCapital.Domain.Identity;
 using FerrumCapital.Infrastructure.Persistance.Interceptors;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FerrumCapital.Infrastructure.Persistance
 {
-    public class AppDbContext:DbContext,IApplicationDbContext
+    public class AppDbContext:IdentityDbContext<AppUser>,IApplicationDbContext
     {
         private readonly AuditableEntitySaveChangesInterceptor _interceptor;
         public AppDbContext(
