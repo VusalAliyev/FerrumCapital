@@ -12,7 +12,7 @@ namespace FerrumCapital.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;

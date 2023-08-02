@@ -50,7 +50,9 @@ namespace FerrumCapital.Application.Features.Commands.Product.CreateProduct
 
                 var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(request.File.FileName);
 
+                //FerrumCapital.API\bin\Debug\net7.0\Downloaded\
                 var directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Downloaded");
+
                 if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath); 
