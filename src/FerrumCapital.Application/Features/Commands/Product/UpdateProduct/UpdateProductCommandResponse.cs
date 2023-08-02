@@ -8,6 +8,8 @@ namespace FerrumCapital.Application.Features.Commands.Product.UpdateProduct
 {
     public class UpdateProductCommandResponse
     {
+        public bool IsSuccess { get; set; }
+        public string ErrorMessage { get; set; }
         public string Name { get; set; }
         public string FilePath { get; set; }
     }

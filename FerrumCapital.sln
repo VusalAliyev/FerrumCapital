@@ -5,13 +5,17 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{57962F4E-3FEA-4DA6-8A42-2D29DA47861C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerrumCapital.API", "src\FerrumCapital.API\FerrumCapital.API.csproj", "{FF925EEA-B43E-4780-9127-4022545B852F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FerrumCapital.API", "src\FerrumCapital.API\FerrumCapital.API.csproj", "{FF925EEA-B43E-4780-9127-4022545B852F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerrumCapital.Infrastructure", "src\FerrumCapital.Infrastructure\FerrumCapital.Infrastructure.csproj", "{252FCDB9-DCA8-4A7E-ACA4-65E503D1639E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FerrumCapital.Infrastructure", "src\FerrumCapital.Infrastructure\FerrumCapital.Infrastructure.csproj", "{252FCDB9-DCA8-4A7E-ACA4-65E503D1639E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerrumCapital.Application", "src\FerrumCapital.Application\FerrumCapital.Application.csproj", "{CE52FF0A-086F-4893-92FB-BF58E760A76F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FerrumCapital.Application", "src\FerrumCapital.Application\FerrumCapital.Application.csproj", "{CE52FF0A-086F-4893-92FB-BF58E760A76F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FerrumCapital.Domain", "src\FerrumCapital.Domain\FerrumCapital.Domain.csproj", "{206113F9-CA8E-4488-8D64-F645ABB602E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FerrumCapital.Domain", "src\FerrumCapital.Domain\FerrumCapital.Domain.csproj", "{206113F9-CA8E-4488-8D64-F645ABB602E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{21AFE1CF-D01C-4193-8B68-B7D7A79E2B8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "tests\Application.UnitTests\Application.UnitTests.csproj", "{1B411482-3DCB-46E2-A569-5D38A8A136B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{206113F9-CA8E-4488-8D64-F645ABB602E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{206113F9-CA8E-4488-8D64-F645ABB602E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{206113F9-CA8E-4488-8D64-F645ABB602E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B411482-3DCB-46E2-A569-5D38A8A136B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B411482-3DCB-46E2-A569-5D38A8A136B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B411482-3DCB-46E2-A569-5D38A8A136B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B411482-3DCB-46E2-A569-5D38A8A136B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{252FCDB9-DCA8-4A7E-ACA4-65E503D1639E} = {57962F4E-3FEA-4DA6-8A42-2D29DA47861C}
 		{CE52FF0A-086F-4893-92FB-BF58E760A76F} = {57962F4E-3FEA-4DA6-8A42-2D29DA47861C}
 		{206113F9-CA8E-4488-8D64-F645ABB602E7} = {57962F4E-3FEA-4DA6-8A42-2D29DA47861C}
+		{1B411482-3DCB-46E2-A569-5D38A8A136B1} = {21AFE1CF-D01C-4193-8B68-B7D7A79E2B8C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A6025F03-6B1B-4678-B4DB-6D0343EBBE44}

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FerrumCapital.Application.Features.Commands.Product.UpdateProduct
@@ -20,37 +21,74 @@ namespace FerrumCapital.Application.Features.Commands.Product.UpdateProduct
 
         public async Task<UpdateProductCommandResponse> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
         {
-            var updatedProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == request.Id);
-
-            if (System.IO.File.Exists(updatedProduct.FilePath))
+            try
             {
-                System.IO.File.Delete(updatedProduct.FilePath);
+                var updatedProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == request.Id);
+
+                if (updatedProduct == null)
+                {
+                    return new UpdateProductCommandResponse { IsSuccess = false, ErrorMessage = "Product not found." };
+                }
+
+                if (System.IO.File.Exists(updatedProduct.FilePath))
+                {
+                    System.IO.File.Delete(updatedProduct.FilePath);
+                }
+
+                const long MaxFileSizeBytes = 10 * 1024 * 1024; // 10 MB
+                string[] AllowedMimeTypes = { "image/jpeg", "image/png", "application/pdf" };
+                string AllowedFileNamePattern = @"^[A-Za-z0-9_-]+\.(jpg|jpeg|png|pdf)$";
+
+                if (request.File.Length > MaxFileSizeBytes)
+                {
+                    return new UpdateProductCommandResponse { IsSuccess = false, ErrorMessage = "File size exceeds the limit." };
+                }
+
+                if (!AllowedMimeTypes.Contains(request.File.ContentType))
+                {
+                    return new UpdateProductCommandResponse { IsSuccess = false, ErrorMessage = "Invalid file type." };
+                }
+
+                if (!Regex.IsMatch(request.File.FileName, AllowedFileNamePattern))
+                {
+                    return new UpdateProductCommandResponse { IsSuccess = false, ErrorMessage = "Invalid file name." };
+                }
+
+                if (request.File == null || request.File.Length == 0)
+                {
+                    return new UpdateProductCommandResponse { IsSuccess = false, ErrorMessage = "File can not be null" };
+                }
+
+                var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(request.File.FileName);
+                var directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Downloaded");
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                var filePath = Path.Combine(directoryPath, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await request.File.CopyToAsync(fileStream);
+                }
+
+                updatedProduct.Name = request.File.FileName;
+                updatedProduct.FilePath = filePath;
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                return new UpdateProductCommandResponse
+                {
+                    IsSuccess = true,
+                    FilePath = updatedProduct.FilePath,
+                    Name = updatedProduct.Name,
+                };
             }
-
-            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(request.File.FileName);
-            var directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Downloaded");
-            if (!Directory.Exists(directoryPath))
+            catch (Exception ex)
             {
-                Directory.CreateDirectory(directoryPath);
+                return new UpdateProductCommandResponse { IsSuccess = false, ErrorMessage = "An error occurred during file update." };
             }
-
-            var filePath = Path.Combine(directoryPath, uniqueFileName);
-
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await request.File.CopyToAsync(fileStream);
-            }
-
-            updatedProduct.Name = request.File.Name;
-            updatedProduct.FilePath = filePath;
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new UpdateProductCommandResponse
-            {
-                FilePath = updatedProduct.FilePath,
-                Name = updatedProduct.Name,
-            };
         }
     }
 }
